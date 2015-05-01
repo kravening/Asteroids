@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.display.MovieClip
+	import flash.globalization.NumberFormatter;
 	
 	/**
 	 * ...
@@ -10,12 +11,11 @@ package
 	 */
 	public class Main extends Sprite 
 	{
-		private var player1:MovieClip;
+		private var player1:MovieClip = new Player();
 		private var MovingObjects:Array = new Array();
 		
 		public function Main() 
-		{
-			player1 = new Player();
+		{	
 			MovingObjects.push(player1); // movingObjects[0]
 			addChild(MovingObjects[0]); // player ship
 			
@@ -32,18 +32,27 @@ package
 		
 		private function loop (e:Event):void //main loop
 		{
-			if ((MovingObjects[0].x) < 0 - (MovingObjects[0].height /2)) {
-			MovingObjects[0].x = stage.stageWidth + MovingObjects[0].height/2;
+			//stop de screenwrap in een superclass "movable objects"
+			var movObjIndex:int = MovingObjects.length;
+			for (var i:int = 0; i < movObjIndex; i++) 
+			{
+				if ((MovingObjects[i].x) < 0 - (MovingObjects[i].height /2)) {
+				MovingObjects[i].x = stage.stageWidth + MovingObjects[i].height/2;
+				}
+				if ((MovingObjects[i].x) > (stage.stageWidth + MovingObjects[i].height / 2)) {
+					MovingObjects[i].x = -MovingObjects[i].height/2;
+				}
+				if ((MovingObjects[i].y) < 0 - (MovingObjects[i].height / 2)) {
+					MovingObjects[i].y = stage.stageHeight + MovingObjects[i].height/2;
+				}
+				if ((MovingObjects[i].y) > (stage.stageHeight + MovingObjects[i].height / 2)) {
+					MovingObjects[i].y = -MovingObjects[i].height/2;
+				}
 			}
-			if ((MovingObjects[0].x) > (stage.stageWidth + MovingObjects[0].height / 2)) {
-				MovingObjects[0].x = -MovingObjects[0].height/2;
-			}
-			if ((MovingObjects[0].y) < 0 - (MovingObjects[0].height / 2)) {
-				MovingObjects[0].y = stage.stageHeight + MovingObjects[0].height/2;
-			}
-			if ((MovingObjects[0].y) > (stage.stageHeight + MovingObjects[0].height / 2)) {
-				MovingObjects[0].y = -MovingObjects[0].height/2;
-			}
+		}
+		
+		public function createBullet(e:Event) {
+			
 		}
 		
 	}
