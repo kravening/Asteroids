@@ -16,11 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-<<<<<<< HEAD
       <value>'1-5-2015'</value>
-=======
-      <value>'5/1/2015'</value>
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -40,12 +36,8 @@
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-<<<<<<< HEAD
       <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\assets_placeholder.swc</path-element>
-=======
-      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\assets_placeholder.swc</path-element>
-      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\Player_Bullet.swc</path-element>
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
+      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\Player_Bullet.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

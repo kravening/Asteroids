@@ -2,14 +2,11 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
-<<<<<<< HEAD
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-=======
 	import flash.display.MovieClip
 	import flash.globalization.NumberFormatter;
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 	
 	/**
 	 * ...
@@ -24,15 +21,10 @@ package
 		private var base1:MovieClip;
 		
 		
-		public function Main() 
-<<<<<<< HEAD
+		public function Main()
 		{
 			player1 = new Player();
 			base1 = new Base;
-			
-=======
-		{	
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 			MovingObjects.push(player1); // movingObjects[0]
 			addChild(MovingObjects[0]); // player ship
 			addChild(base1);
@@ -78,7 +70,7 @@ package
 			}
 		}
 		
-		public function createBullet(e:Event) {
+		public function createBullet(e:Event):void {
 			
 		}
 		

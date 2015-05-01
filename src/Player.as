@@ -13,13 +13,6 @@ package
 	 */
 	public class Player extends PlayerPlane //extends character class
 	{
-<<<<<<< HEAD
-		private const maxSpeed:int = 16;
-		private const acceleration:int = 1;
-		private const rotationSpeed:int = 8;
-		private const friction:Number = 0.8;
-		
-=======
 		private const maxSpeed:int = 20;
 		private const acceleration:int = 1;
 		private const rotationSpeed:int = 16;
@@ -30,18 +23,14 @@ package
 		private var bulletIndex:Number;
 		private var bulletReloadCounter:Number;
 		
-		
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		private var velocity:Point = new Point();
 		private var upKey:Boolean = false;
 		private var downKey:Boolean = false;
 		private var leftKey:Boolean = false;
 		private var rightKey:Boolean = false;
-<<<<<<< HEAD
-=======
+		
 		private var shootKey:Boolean = false;
 		private var brake:Boolean = false;
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		
 		
 		public function Player() 
@@ -101,15 +90,7 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 		}
 		
-<<<<<<< HEAD
-		private function keyDown(e:KeyboardEvent):void 
-		{
-=======
-		private function shoot(e:Event) {
-		}
-		
-		private function keyDown(e:KeyboardEvent) {
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
+		private function keyDown(e:KeyboardEvent):void {
 			if (e.keyCode == 37) {
 				leftKey = true;
 			}
@@ -119,13 +100,10 @@ package
 			if (e.keyCode == 39) {
 				rightKey = true;
 			}
-<<<<<<< HEAD
 			
-=======
 			if (e.keyCode == 40) {
 				downKey = true;
 			}
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		}
 		
 		private function keyUp(e:KeyboardEvent):void 
@@ -139,13 +117,10 @@ package
 			if (e.keyCode == 39) {
 				rightKey = false;
 			}
-<<<<<<< HEAD
-			
-=======
 			if (e.keyCode == 40) {
 				downKey = false;
 			}
->>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
+			
 		}
 		
 	}
