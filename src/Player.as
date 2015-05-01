@@ -1,5 +1,6 @@
 package 
 {
+	import flash.automation.ActionGenerator;
 	import flash.events.Event;
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
@@ -12,16 +13,35 @@ package
 	 */
 	public class Player extends PlayerPlane //extends character class
 	{
+<<<<<<< HEAD
 		private const maxSpeed:int = 16;
 		private const acceleration:int = 1;
 		private const rotationSpeed:int = 8;
 		private const friction:Number = 0.8;
 		
+=======
+		private const maxSpeed:int = 20;
+		private const acceleration:int = 1;
+		private const rotationSpeed:int = 16;
+		private const friction:Number = 0.75;
+		private const bulletSpeed:int = 16;
+		
+		private var bulletAmount:Number;
+		private var bulletIndex:Number;
+		private var bulletReloadCounter:Number;
+		
+		
+>>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		private var velocity:Point = new Point();
 		private var upKey:Boolean = false;
 		private var downKey:Boolean = false;
 		private var leftKey:Boolean = false;
 		private var rightKey:Boolean = false;
+<<<<<<< HEAD
+=======
+		private var shootKey:Boolean = false;
+		private var brake:Boolean = false;
+>>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		
 		
 		public function Player() 
@@ -30,25 +50,30 @@ package
 			
 			this.x = 300;
 			this.y = 300;
-			this.scaleX = 0.3;
-			this.scaleY = 0.3;
+			this.scaleX = 0.15;
+			this.scaleY = 0.15;
 			
 		}
 		
 		private function loop (e:Event):void //main loop
 		{	
 			if (upKey) {
+				brake = false;
 				velocity.y += acceleration * Math.sin(this.rotation / 180 * Math.PI);
 				velocity.x += acceleration * Math.cos(this.rotation / 180 * Math.PI);
 				}
-				
 			else if (downKey) {
-				velocity.y -= acceleration * Math.sin(this.rotation / 180 * Math.PI);
-				velocity.x -= acceleration * Math.cos(this.rotation / 180 * Math.PI);
-				} else {
-					velocity.x *= friction;
-					velocity.y *= friction;
-				}
+				brake = false;
+				velocity.y += -(acceleration * Math.sin(this.rotation / 180 * Math.PI));
+				velocity.x += -(acceleration * Math.cos(this.rotation / 180 * Math.PI));
+			}else {
+				brake = true;
+				
+			}
+			if (brake) {
+				velocity.x *= friction;
+				velocity.y *= friction;
+			}
 				
 			if (rightKey) {
 					this.rotation += rotationSpeed;
@@ -76,8 +101,15 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 		}
 		
+<<<<<<< HEAD
 		private function keyDown(e:KeyboardEvent):void 
 		{
+=======
+		private function shoot(e:Event) {
+		}
+		
+		private function keyDown(e:KeyboardEvent) {
+>>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 			if (e.keyCode == 37) {
 				leftKey = true;
 			}
@@ -87,7 +119,13 @@ package
 			if (e.keyCode == 39) {
 				rightKey = true;
 			}
+<<<<<<< HEAD
 			
+=======
+			if (e.keyCode == 40) {
+				downKey = true;
+			}
+>>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		}
 		
 		private function keyUp(e:KeyboardEvent):void 
@@ -101,7 +139,13 @@ package
 			if (e.keyCode == 39) {
 				rightKey = false;
 			}
+<<<<<<< HEAD
 			
+=======
+			if (e.keyCode == 40) {
+				downKey = false;
+			}
+>>>>>>> 381e96aa3cc709e5d921225777e88d4b6f1d6650
 		}
 		
 	}
