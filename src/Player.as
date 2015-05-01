@@ -12,16 +12,16 @@ package
 	 */
 	public class Player extends PlayerPlane //extends character class
 	{
-		const maxSpeed = 16;
-		const acceleration = 1;
-		const rotationSpeed = 8;
-		const friction = 0.8;
+		private const maxSpeed:int = 16;
+		private const acceleration:int = 1;
+		private const rotationSpeed:int = 8;
+		private const friction:Number = 0.8;
 		
-		var velocity:Point = new Point();
-		var upKey:Boolean = false;
-		var downKey:Boolean = false;
-		var leftKey:Boolean = false;
-		var rightKey:Boolean = false;
+		private var velocity:Point = new Point();
+		private var upKey:Boolean = false;
+		private var downKey:Boolean = false;
+		private var leftKey:Boolean = false;
+		private var rightKey:Boolean = false;
 		
 		
 		public function Player() 
@@ -60,7 +60,7 @@ package
 				this.x += velocity.x;
 				this.y += velocity.y;
 				
-				var getCurrSpd = Math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
+				var getCurrSpd:Number = Math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
 				
 			if (getCurrSpd > maxSpeed) {
 				
@@ -76,7 +76,8 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 		}
 		
-		private function keyDown(e:KeyboardEvent) {
+		private function keyDown(e:KeyboardEvent):void 
+		{
 			if (e.keyCode == 37) {
 				leftKey = true;
 			}
@@ -86,13 +87,11 @@ package
 			if (e.keyCode == 39) {
 				rightKey = true;
 			}
-			if (e.keyCode == 40) {
-				leftKey = true;
-			}
 			
 		}
 		
-		private function keyUp(e:KeyboardEvent) {
+		private function keyUp(e:KeyboardEvent):void 
+		{
 			if (e.keyCode == 37) {
 				leftKey = false;
 			}
@@ -101,9 +100,6 @@ package
 			}
 			if (e.keyCode == 39) {
 				rightKey = false;
-			}
-			if (e.keyCode == 40) {
-				leftKey = false;
 			}
 			
 		}
