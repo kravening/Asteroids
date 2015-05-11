@@ -16,7 +16,7 @@ package
 		private const maxSpeed:int = 20;
 		private const acceleration:int = 1;
 		private const rotationSpeed:int = 16;
-		private const friction:Number = 0.75;
+		private const friction:Number = 1;
 		private const bulletSpeed:int = 16;
 		
 		private var bulletAmount:Number;
@@ -32,7 +32,6 @@ package
 		private var shootKey:Boolean = false;
 		private var brake:Boolean = false;
 		
-		
 		public function Player() 
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
@@ -46,6 +45,7 @@ package
 		
 		private function loop (e:Event):void //main loop
 		{	
+			
 			if (upKey) {
 				brake = false;
 				velocity.y += acceleration * Math.sin(this.rotation / 180 * Math.PI);
@@ -85,6 +85,7 @@ package
 		
 		private function init(e:Event):void
 		{
+			
 			stage.addEventListener(Event.ENTER_FRAME, loop);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);

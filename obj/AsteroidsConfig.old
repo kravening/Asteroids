@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'1-5-2015'</value>
+      <value>'5/11/2015'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -32,16 +32,16 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\src</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\assets_placeholder.swc</path-element>
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\Player_Bullet.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\assets_placeholder.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\Player_Bullet.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\src\Main.as</path-element>
+    <path-element>C:\Users\Kravening\Documents\Asteroids\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

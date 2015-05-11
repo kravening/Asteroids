@@ -15,13 +15,38 @@ package
 		private var dY:int;
 		private var isX:Boolean;
 		private var move:Number;
-		
+		private var spawnPos:Number;
+		private var spawnSwitch:Number;
 		public function Enemy() 
 		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			this.x = Math.random() * 800 -50;
-			this.y = Math.random() * 10 - 100;
+			addEventListener(Event.ADDED_TO_STAGE, init);
+			spawnPos = Math.random() * 1;
+			spawnSwitch = Math.random() * 1;
+			if (spawnSwitch <= 0.5) {
+				
+			
+				if (spawnPos <= 0.5) { // top or bottom
+					this.x = Math.random() * 800 -50;
+					this.y = Math.random() * 10 - 100;
+					
+				}else {
+					this.x = Math.random() * 800 -50;
+					this.y = Math.random() * 10 + 600;
+				}
+				
+			}else {
+				
+				if (spawnPos <= 0.5) { //left or right
+					this.x = Math.random() * 0 -50;
+					this.y = Math.random() * 600 - 50;
+					
+				}else {
+					this.x = Math.random() * 10 +800;
+					this.y = Math.random() * 600 - 50;
+					
+				}
+			}
 			this.scaleX = 0.3;
 			this.scaleY = 0.3;
 			this.dX = this.x - baseX;

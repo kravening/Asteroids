@@ -23,6 +23,7 @@ package
 		
 		public function Main()
 		{
+			stage.frameRate = 60;
 			player1 = new Player();
 			base1 = new Base;
 			MovingObjects.push(player1); // movingObjects[0]
