@@ -12,8 +12,8 @@ package
 		{
 			this.x = 400;
 			this.y = 300;
-			this.scaleX = 0.3;
-			this.scaleY = 0.3;
+			this.scaleX = 0.2;
+			this.scaleY = 0.2;
 		}
 		
 	}

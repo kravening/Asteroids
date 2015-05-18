@@ -7,16 +7,17 @@ package
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.KeyLocation;
+	import ScreenWrap;
 	/**
 	 * ...
 	 * @author Benjamin
 	 */
 	public class Player extends PlayerPlane //extends character class
 	{
-		private const maxSpeed:int = 20;
-		private const acceleration:int = 1;
-		private const rotationSpeed:int = 16;
-		private const friction:Number = 1;
+		private const maxSpeed:int = 5;
+		private const acceleration:Number = .5;
+		private const rotationSpeed:int = 6;
+		private const friction:Number = .8;
 		private const bulletSpeed:int = 16;
 		
 		private var bulletAmount:Number;
@@ -29,7 +30,6 @@ package
 		private var leftKey:Boolean = false;
 		private var rightKey:Boolean = false;
 		
-		private var shootKey:Boolean = false;
 		private var brake:Boolean = false;
 		
 		public function Player() 
@@ -38,13 +38,13 @@ package
 			
 			this.x = 300;
 			this.y = 300;
-			this.scaleX = 0.15;
-			this.scaleY = 0.15;
+			this.scaleX = 0.1;
+			this.scaleY = 0.1;
 			
 		}
 		
 		private function loop (e:Event):void //main loop
-		{	
+		{
 			
 			if (upKey) {
 				brake = false;
@@ -63,7 +63,7 @@ package
 				velocity.x *= friction;
 				velocity.y *= friction;
 			}
-				
+			
 			if (rightKey) {
 					this.rotation += rotationSpeed;
 				}
@@ -92,33 +92,36 @@ package
 		}
 		
 		private function keyDown(e:KeyboardEvent):void {
-			if (e.keyCode == 37) {
+			
+			if (e.keyCode == Keyboard.A) {
 				leftKey = true;
 			}
-			if (e.keyCode == 38) {
+			if (e.keyCode == Keyboard.W) {
 				upKey = true;
 			}
-			if (e.keyCode == 39) {
+			if (e.keyCode == Keyboard.D) {
 				rightKey = true;
 			}
 			
-			if (e.keyCode == 40) {
+			if (e.keyCode == Keyboard.S) {
 				downKey = true;
 			}
+			
+
 		}
 		
-		private function keyUp(e:KeyboardEvent):void 
-		{
-			if (e.keyCode == 37) {
+		private function keyUp(e:KeyboardEvent):void {
+			
+			if (e.keyCode == Keyboard.A) {
 				leftKey = false;
 			}
-			if (e.keyCode == 38) {
+			if (e.keyCode == Keyboard.W) {
 				upKey = false;
 			}
-			if (e.keyCode == 39) {
+			if (e.keyCode == Keyboard.D) {
 				rightKey = false;
 			}
-			if (e.keyCode == 40) {
+			if (e.keyCode == Keyboard.S) {
 				downKey = false;
 			}
 			

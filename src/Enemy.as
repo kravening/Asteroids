@@ -47,8 +47,8 @@ package
 					
 				}
 			}
-			this.scaleX = 0.3;
-			this.scaleY = 0.3;
+			this.scaleX = 0.1;
+			this.scaleY = 0.1;
 			this.dX = this.x - baseX;
 			this.dY = this.y - baseY;
 			if (Math.abs(this.dX) < Math.abs(this.dY))

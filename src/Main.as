@@ -2,11 +2,17 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
+	import flash.ui.KeyLocation;
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import flash.display.MovieClip
 	import flash.globalization.NumberFormatter;
+	import flash.net.URLRequest;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	
 	/**
 	 * ...
@@ -19,7 +25,12 @@ package
 		private var enemies:Vector.<Enemy> = new Vector.<Enemy>;
 		private var spawnTimer:Timer = new Timer (2500, 0);
 		private var base1:MovieClip;
+		private var playerShoots:Boolean;
+		private var bulletCooldown:int;
 		
+		private var laserOneShot:URLRequest = new URLRequest("../lib/Sounds/Laser1.mp3"); 
+		private var shoot:Sound = new Sound(laserOneShot);
+		private var myChannel:SoundChannel = new SoundChannel();
 		
 		public function Main()
 		{
@@ -33,6 +44,9 @@ package
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, loop);
+			
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, KeyPressed);
+			stage.addEventListener(KeyboardEvent.KEY_UP, KeyUnPressed);
 		}
 		
 		private function spawnEnemy(e:TimerEvent):void
@@ -69,9 +83,32 @@ package
 					MovingObjects[i].y = -MovingObjects[i].height/2;
 				}
 			}
+			
+			if (playerShoots && bulletCooldown > 10) {
+				myChannel.stop();
+				myChannel = shoot.play();
+				var bullet:Bullet = new Bullet(stage, MovingObjects[0].x, MovingObjects[0].y, MovingObjects[0].rotation)
+				stage.addChild(bullet);
+				MovingObjects.push(bullet);
+				bulletCooldown = 0;
+				shoot.close();
+			}else {
+				bulletCooldown ++;
+			}
+			
 		}
 		
-		public function createBullet(e:Event):void {
+		public function KeyPressed(e:KeyboardEvent):void {
+			if (e.keyCode == Keyboard.SPACE) {
+				playerShoots = true;
+			}
+		}
+		
+		public function KeyUnPressed(e:KeyboardEvent):void {
+			if (e.keyCode == Keyboard.SPACE) {
+				playerShoots = false;
+				
+			}
 			
 		}
 		
