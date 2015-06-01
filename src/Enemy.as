@@ -1,25 +1,35 @@
 package 
 {
 	import flash.display.MovieClip;
+	import flash.display.SpreadMethod;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	/**
 	 * ...
 	 * @author Benjamin
 	 */
-	public class Enemy extends EnemyCube
+	public class Enemy extends Sprite
 	{
-		private var base1:MovieClip = new Base;
-		private var baseX:int = base1.x - 46;
-		private var baseY:int = base1.y - 46;
+		private var base1:Base = new Base;
+		
+		private var baseX:int = base1.x - 30;
+		private var baseY:int = base1.y - 30;
 		private var dX:int;
 		private var dY:int;
+		private var health:int = 20;
 		private var isX:Boolean;
+		private var randomNumGen:int;
+		
+		private var enemy:EnemyCube = new EnemyCube();
+		
 		private var move:Number;
 		private var spawnPos:Number;
 		private var spawnSwitch:Number;
+		private var moveSpeed:Number = 1;
+		
 		public function Enemy() 
 		{
-			
+			addChild(enemy);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			spawnPos = Math.random() * 1;
 			spawnSwitch = Math.random() * 1;
@@ -27,28 +37,29 @@ package
 				
 			
 				if (spawnPos <= 0.5) { // top or bottom
-					this.x = Math.random() * 800 -50;
+					this.x = Math.random() * 800 -50; //top
 					this.y = Math.random() * 10 - 100;
 					
 				}else {
-					this.x = Math.random() * 800 -50;
+					this.x = Math.random() * 800 -50; //bottom
 					this.y = Math.random() * 10 + 600;
 				}
 				
 			}else {
 				
 				if (spawnPos <= 0.5) { //left or right
-					this.x = Math.random() * 0 -50;
+					this.x = Math.random() * -1 -this.width; //left
 					this.y = Math.random() * 600 - 50;
 					
 				}else {
-					this.x = Math.random() * 10 +800;
+					this.x = Math.random() * 10 + 800; //right
 					this.y = Math.random() * 600 - 50;
 					
 				}
 			}
-			this.scaleX = 0.1;
-			this.scaleY = 0.1;
+			
+			this.scaleX = 0.3;
+			this.scaleY = 0.3;
 			this.dX = this.x - baseX;
 			this.dY = this.y - baseY;
 			if (Math.abs(this.dX) < Math.abs(this.dY))
@@ -63,7 +74,7 @@ package
 			}
 		}
 		
-		private function init(e:Event = null):void 
+		private function init(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
@@ -72,21 +83,28 @@ package
 		
 		private function update(e:Event):void
 		{	
-			if (this.x < baseX + 1 && this.x > baseX - 1)
+			if (move >= 1)
 			{
-				
+				move = move / 2;
+				moveSpeed = moveSpeed / 2;
 			}
+			
+			
+			//if (this.x < baseX + 1 && this.x > baseX - 1 && this.y < baseY + 1 && this.y > baseY - 1)
+			//{
+				
+			//}
 			else
 			{
 				if (isX)
 				{
 					if (this.dX <= 0)
 					{
-						this.x += 1;
+						this.x += moveSpeed;
 					}
 					else
 					{
-						this.x -= 1;
+						this.x -= moveSpeed;
 					}
 					if (this.dY <= 0)
 					{
@@ -101,11 +119,11 @@ package
 				{
 					if (this.dY <= 0)
 					{
-						this.y += 1;
+						this.y += moveSpeed;
 					}
 					else
 					{
-						this.y -= 1;
+						this.y -= moveSpeed;
 					}
 					if (this.dX <= 0)
 					{
@@ -117,6 +135,16 @@ package
 					}
 				}
 			}
+		}
+		public function BulletHit():void {
+			health--;
+			if (health < 0) {
+				Destroy();
+			}
+		}
+		public function Destroy():void {
+				removeChild(enemy);
+				//SpawnCollectable();
 		}
 		
 	}

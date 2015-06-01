@@ -10,14 +10,16 @@ package
 	 * ...
 	 * @author Kaj Loevesijn
 	 */
-	public class Bullet extends Player_Bullet
+	public class Bullet extends Sprite
 	{
+		private var bullet:Player_Bullet = new Player_Bullet;
+		
 		private var stageRef:Stage;
-		private var speed:Number = 15; //bullet speed.
+		private var speed:Number = 10 //bullet speed.
 		private var xVel:Number = 0; //velocity over the x axis.
 		private var yVel:Number = 0; //velocity over the y axis.
 		private var rotationInRadians:Number = 0; //stores rotation.
-		private var bulletRange:Number = 30;
+		private var bulletRange:Number = 40;
 		private var bulletShrinkThreshold:Number = 0;
 		private var bulletShrinkAmountX:Number = 0;
 		private var bulletShrinkAmountY:Number = 0;
@@ -25,6 +27,8 @@ package
 		//the constructor requires: the stage, the position of the bullet, and the direction the bullet should be facing.
 		
 		public function Bullet(stageRef:Stage, X:int, Y:int, rotationInDegrees:Number):void {
+			addChild(bullet);
+			
 			this.scaleX = 0.1;
 			this.scaleY = 0.1;
 			this.stageRef = stageRef;
@@ -47,6 +51,19 @@ package
 			x += xVel;
 			y += yVel;
 			
+			if ((this.x) < 0 - (this.height /2)) {
+			this.x = stage.stageWidth + this.height/2;
+			}
+			if ((this.x) > (stage.stageWidth + this.height / 2)) {
+					this.x = -this.height/2;
+			}
+			if ((this.y) < 0 - (this.height / 2)) {
+					this.y = stage.stageHeight + this.height/2;
+			}
+			if ((this.y) > (stage.stageHeight + this.height / 2)) {
+					this.y = -this.height/2;
+			}
+			
 			bulletRange --;
 			bulletShrinkThreshold --;
 			
@@ -63,8 +80,8 @@ package
 			}
 		}
 		
-		private function DestroyBullet() {
-			this.parent.removeChild(this);
+		public function DestroyBullet():void {
+			removeChild(bullet);
 		}
 		
 	}

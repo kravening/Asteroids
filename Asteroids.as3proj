@@ -53,7 +53,8 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\assets_placeholder.swc" />
-    <element path="lib\Player_bullet.swc" />
+    <element path="lib\Player_Bullet.swc" />
+    <element path="lib\Collectable.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

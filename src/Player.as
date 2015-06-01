@@ -7,7 +7,6 @@ package
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.KeyLocation;
-	import ScreenWrap;
 	/**
 	 * ...
 	 * @author Benjamin
@@ -45,6 +44,19 @@ package
 		
 		private function loop (e:Event):void //main loop
 		{
+			
+			if ((this.x) < 0 - (this.height /2)) {
+			this.x = stage.stageWidth + this.height/2;
+			}
+			if ((this.x) > (stage.stageWidth + this.height / 2)) {
+					this.x = -this.height/2;
+			}
+			if ((this.y) < 0 - (this.height / 2)) {
+					this.y = stage.stageHeight + this.height/2;
+			}
+			if ((this.y) > (stage.stageHeight + this.height / 2)) {
+					this.y = -this.height/2;
+			}
 			
 			if (upKey) {
 				brake = false;

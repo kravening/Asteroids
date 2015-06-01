@@ -18,15 +18,21 @@ package
 	 * ...
 	 * @author Benjamin
 	 */
-	public class Main extends Sprite 
+	public class Main extends MovieClip
 	{
 		private var player1:MovieClip = new Player();
+		private var enemy:Sprite = new Enemy();
 		private var MovingObjects:Array = new Array();
-		private var enemies:Vector.<Enemy> = new Vector.<Enemy>;
+		private var BulletArray:Array = new Array();
+		private var enemies:Array = new Array();
 		private var spawnTimer:Timer = new Timer (2500, 0);
-		private var base1:MovieClip;
+		private var base1:Base = new Base;
 		private var playerShoots:Boolean;
 		private var bulletCooldown:int;
+		private var randomNumGen:Number;
+
+		private var collectableArray:Array = new Array();
+		private var collectable:Sprite = new Collectable();
 		
 		private var laserOneShot:URLRequest = new URLRequest("../lib/Sounds/Laser1.mp3"); 
 		private var shoot:Sound = new Sound(laserOneShot);
@@ -34,9 +40,9 @@ package
 		
 		public function Main()
 		{
+			
 			stage.frameRate = 60;
 			player1 = new Player();
-			base1 = new Base;
 			MovingObjects.push(player1); // movingObjects[0]
 			addChild(MovingObjects[0]); // player ship
 			addChild(base1);
@@ -51,8 +57,9 @@ package
 		
 		private function spawnEnemy(e:TimerEvent):void
 		{
-			enemies.push(new Enemy);
-			addChild(new Enemy);
+			enemy = new Enemy();
+			addChild(enemy);
+			enemies.push(enemy);
 		}
 		
 		
@@ -66,32 +73,16 @@ package
 		
 		private function loop (e:Event):void //main loop
 		{
-			//stop de screenwrap in een superclass "movable objects"
-			var movObjIndex:int = MovingObjects.length;
-			for (var i:int = 0; i < movObjIndex; i++) 
-			{
-				if ((MovingObjects[i].x) < 0 - (MovingObjects[i].height /2)) {
-				MovingObjects[i].x = stage.stageWidth + MovingObjects[i].height/2;
-				}
-				if ((MovingObjects[i].x) > (stage.stageWidth + MovingObjects[i].height / 2)) {
-					MovingObjects[i].x = -MovingObjects[i].height/2;
-				}
-				if ((MovingObjects[i].y) < 0 - (MovingObjects[i].height / 2)) {
-					MovingObjects[i].y = stage.stageHeight + MovingObjects[i].height/2;
-				}
-				if ((MovingObjects[i].y) > (stage.stageHeight + MovingObjects[i].height / 2)) {
-					MovingObjects[i].y = -MovingObjects[i].height/2;
-				}
-			}
+			checkCollision();
 			
-			if (playerShoots && bulletCooldown > 10) {
-				myChannel.stop();
-				myChannel = shoot.play();
-				var bullet:Bullet = new Bullet(stage, MovingObjects[0].x, MovingObjects[0].y, MovingObjects[0].rotation)
-				stage.addChild(bullet);
-				MovingObjects.push(bullet);
+			if (playerShoots && bulletCooldown > 2) {
+				//myChannel.stop();
+				//myChannel = shoot.play();
+				var bullet:Bullet = new Bullet(stage, MovingObjects[0].x, MovingObjects[0].y, MovingObjects[0].rotation);
+				addChild(bullet);
+				BulletArray.push(bullet);
 				bulletCooldown = 0;
-				shoot.close();
+				//shoot.close();
 			}else {
 				bulletCooldown ++;
 			}
@@ -110,6 +101,42 @@ package
 				
 			}
 			
+		}
+		
+		private function checkCollision():void {
+			var l:int = enemies.length;
+			var k:int = BulletArray.length;
+			for (var i:int = 0; i < l; i++) {
+				if (enemies[i].hitTestObject(base1)) {
+					enemies[i].Destroy();
+					enemies.splice(i, 1);
+					trace("banana1");
+				}
+				if(enemies[i].hitTestObject(player1)) {
+					enemies[i].Destroy();
+					trace("banana2");
+				}
+				
+				for (var j:int = 0; j < k; j++) 
+				{
+					if (BulletArray[j].hitTestObject(enemies[i]))
+					{
+						trace("banana3");
+						BulletArray[j].DestroyBullet();
+						enemies[i].BulletHit();
+					}
+				}
+			}
+			
+		}
+		
+		private function SpawnCollectable():void {
+				randomNumGen = Math.random() * 100;
+				if (randomNumGen < 33) {
+					collectable = new Collectable();
+					addChild(collectable);
+					collectableArray.push(collectable);
+			}
 		}
 		
 	}
