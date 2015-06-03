@@ -19,8 +19,11 @@ package
 		private var health:int = 20;
 		private var isX:Boolean;
 		private var randomNumGen:int;
-		
-		private var enemy:EnemyCube = new EnemyCube();
+		private var top:Boolean;
+		private var bot:Boolean;
+		private var left:Boolean;
+		private var right:Boolean;
+		private var enemy:Enemy_Body = new Enemy_Body();
 		
 		private var move:Number;
 		private var spawnPos:Number;
@@ -39,10 +42,22 @@ package
 				if (spawnPos <= 0.5) { // top or bottom
 					this.x = Math.random() * 800 -50; //top
 					this.y = Math.random() * 10 - 100;
+					this.rotation = 90;
+					
+					top = true;
+					bot = false;
+					left = false;
+					right = false;
 					
 				}else {
 					this.x = Math.random() * 800 -50; //bottom
 					this.y = Math.random() * 10 + 600;
+					this.rotation = 270;
+					
+					top = false;
+					bot = true;
+					left = false;
+					right = false;
 				}
 				
 			}else {
@@ -51,15 +66,24 @@ package
 					this.x = Math.random() * -1 -this.width; //left
 					this.y = Math.random() * 600 - 50;
 					
+					top = false;
+					bot = false;
+					left = true;
+					right = false;
 				}else {
 					this.x = Math.random() * 10 + 800; //right
 					this.y = Math.random() * 600 - 50;
+					this.rotation = 180;
 					
+					top = false;
+					bot = false;
+					left = false;
+					right = true;
 				}
 			}
 			
-			this.scaleX = 0.3;
-			this.scaleY = 0.3;
+			this.scaleX = 0.2;
+			this.scaleY = 0.2;
 			this.dX = this.x - baseX;
 			this.dY = this.y - baseY;
 			if (Math.abs(this.dX) < Math.abs(this.dY))
@@ -138,13 +162,28 @@ package
 		}
 		public function BulletHit():void {
 			health--;
+			
+			if(top){
+				this.y -= 2;
+			}
+			
+			if (bot) {
+				this.y += 2;
+			}
+			
+			if (left) {
+				this.x -= 2;
+			}
+			
+			if (right) {
+				this.x += 2;
+			}
 			if (health < 0) {
 				Destroy();
 			}
 		}
 		public function Destroy():void {
 				removeChild(enemy);
-				//SpawnCollectable();
 		}
 		
 	}

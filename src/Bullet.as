@@ -12,8 +12,13 @@ package
 	 */
 	public class Bullet extends Sprite
 	{
-		private var bullet:Player_Bullet = new Player_Bullet;
+		private var bullet:Player_bullet = new Player_bullet;
+		private var muzzleFlash1:Muzzle_01 = new Muzzle_01;
+		private var muzzleFlash2:Muzzle_02 = new Muzzle_02;
+		private var muzzleFlash3:Muzzle_03 = new Muzzle_03;
 		
+		private var fpscounter:int = 30;
+		private var randomNumGen:Number = Math.random() * 3;
 		private var stageRef:Stage;
 		private var speed:Number = 10 //bullet speed.
 		private var xVel:Number = 0; //velocity over the x axis.
@@ -29,6 +34,9 @@ package
 		public function Bullet(stageRef:Stage, X:int, Y:int, rotationInDegrees:Number):void {
 			addChild(bullet);
 			
+			//addChild(muzzleFlash1);
+			muzzleFlash1.scaleX = 10;
+			muzzleFlash1.scaleY = 10;
 			this.scaleX = 0.1;
 			this.scaleY = 0.1;
 			this.stageRef = stageRef;
@@ -46,6 +54,13 @@ package
 		}
 		
 		private function loop (e:Event):void {
+			//muzzleFlash1.scaleX -= 5;
+			//muzzleFlash1.scaleY -= 5;
+			
+			//if (muzzleFlash1.scaleY == 0) {
+			//	removeChild(muzzleFlash1);
+			//}
+			 fpscounter --;
 			xVel = Math.cos(rotationInRadians) * speed; 
 			yVel = Math.sin(rotationInRadians) * speed;
 			x += xVel;

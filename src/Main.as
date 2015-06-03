@@ -20,7 +20,7 @@ package
 	 */
 	public class Main extends MovieClip
 	{
-		private var player1:MovieClip = new Player();
+		private var player1:Sprite = new Player();
 		private var enemy:Sprite = new Enemy();
 		private var MovingObjects:Array = new Array();
 		private var BulletArray:Array = new Array();
@@ -30,9 +30,12 @@ package
 		private var playerShoots:Boolean;
 		private var bulletCooldown:int;
 		private var randomNumGen:Number;
+		private var blackBarLeft:Black_Bar = new Black_Bar();
+		private var blackBarRight:Black_Bar = new Black_Bar();
+		private var background:Background = new Background();
 
-		private var collectableArray:Array = new Array();
-		private var collectable:Sprite = new Collectable();
+		//private var collectableArray:Array = new Array();
+		//private var collectable:Sprite = new Collectable();
 		
 		private var laserOneShot:URLRequest = new URLRequest("../lib/Sounds/Laser1.mp3"); 
 		private var shoot:Sound = new Sound(laserOneShot);
@@ -40,12 +43,27 @@ package
 		
 		public function Main()
 		{
+			this.stage.color = 0x22222;
 			
 			stage.frameRate = 60;
+			addChild(background);
+			background.scaleX = 1.1;
+			background.scaleY = 1.1;
+		
+			addChild(base1);
 			player1 = new Player();
 			MovingObjects.push(player1); // movingObjects[0]
 			addChild(MovingObjects[0]); // player ship
-			addChild(base1);
+			
+			addChild(blackBarLeft);
+			blackBarLeft.x =  -blackBarLeft.width / 2;
+			blackBarLeft.y = 0;
+			blackBarLeft.scaleY = 100;
+			
+			addChild(blackBarRight);
+			blackBarRight.x =  800 + blackBarRight.width / 2;
+			blackBarRight.y = 0;
+			blackBarRight.scaleY = 100;
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -78,9 +96,12 @@ package
 			if (playerShoots && bulletCooldown > 2) {
 				//myChannel.stop();
 				//myChannel = shoot.play();
-				var bullet:Bullet = new Bullet(stage, MovingObjects[0].x, MovingObjects[0].y, MovingObjects[0].rotation);
-				addChild(bullet);
-				BulletArray.push(bullet);
+				var bullet1:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation - 1.5 * Math.random() * 3));
+				var bullet2:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation - 1.5 * Math.random() * 3));
+				addChild(bullet1);
+				addChild(bullet2);
+				BulletArray.push(bullet1);
+				BulletArray.push(bullet2);
 				bulletCooldown = 0;
 				//shoot.close();
 			}else {
@@ -114,6 +135,7 @@ package
 				}
 				if(enemies[i].hitTestObject(player1)) {
 					enemies[i].Destroy();
+					enemies.splice(i, 1);
 					trace("banana2");
 				}
 				
@@ -124,20 +146,22 @@ package
 						trace("banana3");
 						BulletArray[j].DestroyBullet();
 						enemies[i].BulletHit();
+						enemies[i].splice(i, l);
+						BulletArray[j].splice(j, k);
 					}
 				}
 			}
 			
 		}
 		
-		private function SpawnCollectable():void {
+		/*public function SpawnCollectable():void {
 				randomNumGen = Math.random() * 100;
 				if (randomNumGen < 33) {
 					collectable = new Collectable();
 					addChild(collectable);
 					collectableArray.push(collectable);
 			}
-		}
+		}*/
 		
 	}
 	

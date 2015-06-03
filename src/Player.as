@@ -1,6 +1,7 @@
 package 
 {
 	import flash.automation.ActionGenerator;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
@@ -11,11 +12,14 @@ package
 	 * ...
 	 * @author Benjamin
 	 */
-	public class Player extends PlayerPlane //extends character class
+	public class Player extends Sprite //extends character class
 	{
+		private var player1:Player_ship = new Player_ship;
+	
+		
 		private const maxSpeed:int = 5;
 		private const acceleration:Number = .5;
-		private const rotationSpeed:int = 6;
+		private const rotationSpeed:int = 4;
 		private const friction:Number = .8;
 		private const bulletSpeed:int = 16;
 		
@@ -33,6 +37,8 @@ package
 		
 		public function Player() 
 		{
+			
+			addChild(player1);
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
 			
 			this.x = 300;
