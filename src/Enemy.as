@@ -1,9 +1,10 @@
-package 
+package
 {
 	import flash.display.MovieClip;
 	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	
 	/**
 	 * ...
 	 * @author Benjamin
@@ -16,7 +17,7 @@ package
 		private var baseY:int = base1.y - 30;
 		private var dX:int;
 		private var dY:int;
-		private var health:int = 20;
+		private var health:int;
 		private var isX:Boolean;
 		private var randomNumGen:int;
 		private var top:Boolean;
@@ -25,67 +26,27 @@ package
 		private var right:Boolean;
 		private var enemy:Enemy_Body = new Enemy_Body();
 		
+		private var impact:Muzzle_Flash = new Muzzle_Flash;
+		
 		private var move:Number;
 		private var spawnPos:Number;
 		private var spawnSwitch:Number;
 		private var moveSpeed:Number = 1;
 		
-		public function Enemy() 
+		public function Enemy()
 		{
+			health = 30;
 			addChild(enemy);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			spawnPos = Math.random() * 1;
 			spawnSwitch = Math.random() * 1;
-			if (spawnSwitch <= 0.5) {
-				
-			
-				if (spawnPos <= 0.5) { // top or bottom
-					this.x = Math.random() * 800 -50; //top
-					this.y = Math.random() * 10 - 100;
-					this.rotation = 90;
-					
-					top = true;
-					bot = false;
-					left = false;
-					right = false;
-					
-				}else {
-					this.x = Math.random() * 800 -50; //bottom
-					this.y = Math.random() * 10 + 600;
-					this.rotation = 270;
-					
-					top = false;
-					bot = true;
-					left = false;
-					right = false;
-				}
-				
-			}else {
-				
-				if (spawnPos <= 0.5) { //left or right
-					this.x = Math.random() * -1 -this.width; //left
-					this.y = Math.random() * 600 - 50;
-					
-					top = false;
-					bot = false;
-					left = true;
-					right = false;
-				}else {
-					this.x = Math.random() * 10 + 800; //right
-					this.y = Math.random() * 600 - 50;
-					this.rotation = 180;
-					
-					top = false;
-					bot = false;
-					left = false;
-					right = true;
-				}
-			}
+			SpawnPosChanger();
 			
 			this.scaleX = 0.2;
 			this.scaleY = 0.2;
 			this.dX = this.x - baseX;
 			this.dY = this.y - baseY;
+			
 			if (Math.abs(this.dX) < Math.abs(this.dY))
 			{
 				isX = true;
@@ -97,7 +58,6 @@ package
 				move = Math.abs(this.dX) / Math.abs(this.dY);
 			}
 		}
-		
 		private function init(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -106,17 +66,16 @@ package
 		}
 		
 		private function update(e:Event):void
-		{	
+		{
 			if (move >= 1)
 			{
 				move = move / 2;
 				moveSpeed = moveSpeed / 2;
 			}
 			
-			
 			//if (this.x < baseX + 1 && this.x > baseX - 1 && this.y < baseY + 1 && this.y > baseY - 1)
 			//{
-				
+			
 			//}
 			else
 			{
@@ -160,32 +119,104 @@ package
 				}
 			}
 		}
-		public function BulletHit():void {
-			health--;
-			
-			if(top){
-				this.y -= 2;
+		
+		private function SpawnPosChanger():void {
+			if (spawnSwitch <= 0.5)
+			{
+				
+				if (spawnPos <= 0.5)
+				{ // top or bottom
+					this.x = Math.random() * 800 - 50; //top
+					this.y = Math.random() * 10 - 100;
+					this.rotation = 90;
+					
+					top = true;
+					bot = false;
+					left = false;
+					right = false;
+					
+				}
+				else
+				{
+					this.x = Math.random() * 800 - 50; //bottom
+					this.y = Math.random() * 10 + 600;
+					this.rotation = 270;
+					
+					top = false;
+					bot = true;
+					left = false;
+					right = false;
+				}
+				
 			}
-			
-			if (bot) {
-				this.y += 2;
+			else
+			{
+				
+				if (spawnPos <= 0.5)
+				{ //left or right
+					this.x = Math.random() * -this.width; //left
+					this.y = Math.random() * 600 - 50;
+					
+					top = false;
+					bot = false;
+					left = true;
+					right = false;
+				}
+				else
+				{
+					this.x = Math.random() * 10 + 800; //right
+					this.y = Math.random() * 600 - 50;
+					this.rotation = 180;
+					
+					top = false;
+					bot = false;
+					left = false;
+					right = true;
+				}
 			}
-			
-			if (left) {
-				this.x -= 2;
-			}
-			
-			if (right) {
-				this.x += 2;
-			}
-			if (health < 0) {
-				Destroy();
-			}
-		}
-		public function Destroy():void {
-				removeChild(enemy);
 		}
 		
+		public function BulletHit():void
+		{
+			health -= 1;
+			//addChild(impact);
+			if (top)
+			{
+				this.y -= 4;
+			}
+			
+			if (bot)
+			{
+				this.y += 4;
+			}
+			
+			if (left)
+			{
+				this.x -= 4;
+			}
+			
+			if (right)
+			{
+				this.x += 4;
+			}
+		}
+		
+		public function GetHealth():int
+		{
+			return health;
+		}
+		
+		public function SolidHit():void
+		{
+			health = -1;
+		}
+		
+		public function Destroy():void
+		{
+			removeEventListener(Event.ENTER_FRAME, update);
+			removeChild(enemy);
+		}
+	
 	}
 
 }

@@ -5,6 +5,7 @@
   <target-player>17.0</target-player>
   <benchmark>false</benchmark>
   <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+  <warnings>false</warnings>
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
@@ -16,7 +17,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'6/3/2015'</value>
+      <value>'6/8/2015'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -36,9 +37,9 @@
       <path-element>D:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\Player_Bullet.swc</path-element>
       <path-element>C:\Users\Kravening\Documents\Asteroids\lib\Assets.swc</path-element>
-      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\Collectable.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\MuzzleFlash.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\GlowThingy.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
