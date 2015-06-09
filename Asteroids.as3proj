@@ -57,6 +57,7 @@
     <element path="lib\MuzzleFlash.swc" />
     <element path="lib\GlowThingy.swc" />
     <element path="lib\graphicUserInterface.swc" />
+    <element path="lib\menuPlaceholder.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
