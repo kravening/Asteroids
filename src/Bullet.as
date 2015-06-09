@@ -27,6 +27,9 @@ package
 		private var onImpact:Boolean = false; 0
 		private var addArtCounter:int = 0;
 		private var muzzleFlashArt:Muzzle_Flash = new Muzzle_Flash();
+		private var bulletInvert:Boolean = false;
+		private var bounceAngle:Number;
+		private var isBouncing:Boolean = false;
 		
 		//the constructor requires: the stage, the position of the bullet, and the direction the bullet should be facing.
 		
@@ -40,8 +43,8 @@ package
 			this.y = Y;
 			this.rotation = rotationInDegrees;
 			this.rotationInRadians = rotationInDegrees * Math.PI / 180;
-			muzzleFlashArt.scaleX = 2;
-			muzzleFlashArt.scaleY = 2;
+			muzzleFlashArt.scaleX = 3;
+			muzzleFlashArt.scaleY = 3;
 			
 			bulletShrinkThreshold = bulletRange * 0.8; // starts after 80%(1 = 100%, 0.5 = 50%, 0 = 0% etc) of the bullet lifespan
 			bulletShrinkAmountX = this.scaleX / (bulletRange - bulletShrinkThreshold) // calculates the amount of frames left before the bullet dissapears then bases the scale reduction on the amount of frames left, pretty damn flexible for if i want to balance things out later.
@@ -61,16 +64,28 @@ package
 				addArtCounter--;
 			}
 			if(muzzleFlashArt != null){
-					if (muzzleFlashArt.alpha <= .9){
+					if (muzzleFlashArt.alpha <= .99){
 						removeChild(muzzleFlashArt);
 					}
 					muzzleFlashArt.alpha -= .1;
 			}
 			fpscounter--;
-			xVel = Math.cos(rotationInRadians) * speed;
-			yVel = Math.sin(rotationInRadians) * speed;
-			x += xVel;
-			y += yVel;
+			if (bulletInvert && isBouncing) {
+				xVel = Math.cos(rotationInRadians - bounceAngle) * speed;
+				yVel = Math.sin(rotationInRadians - bounceAngle) * speed;
+				x -= xVel;
+				y -= yVel;
+			}else if (bulletInvert = false && isBouncing) {
+				xVel = Math.cos(rotationInRadians + bounceAngle) * speed;
+				yVel = Math.sin(rotationInRadians + bounceAngle) * speed;
+				x += xVel;
+				y += yVel;
+			}else {
+								xVel = Math.cos(rotationInRadians) * speed;
+				yVel = Math.sin(rotationInRadians) * speed;
+				x += xVel;
+				y += yVel;
+			}
 			
 			if ((this.x) < 0 - (this.height / 2))
 			{
@@ -116,8 +131,24 @@ package
 		}
 		public function DestroyBullet():void
 		{
+			this.muzzleFlashArt.alpha = 0;
 			removeEventListener(Event.ENTER_FRAME, loop);
 			removeChild(bullet);
+		}
+		
+		public function BulletBounce():void {
+			/*trace("ayy");
+			isBouncing = true;
+			if (bulletInvert == true) {
+				bulletInvert = false;
+			}else{
+				bulletInvert = true;
+			}*/
+		}
+		
+		public function GetWallRotation(fireWallRot:Number):void {
+			/*var wallRot:int = fireWallRot;
+			this.bounceAngle = wallRot * Math.PI / 180;*/
 		}
 	
 	}

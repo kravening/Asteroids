@@ -48,10 +48,12 @@ package
 		//private var InformationWindow:TextField = new TextField;
 		private var playerHealth:int = 3;
 		private var addMuzzleArtCounter:int = 3;
+		private var topBar:info_Bar = new info_Bar();
 		
 		private var collectableArray:Array = [];
-		private var fireWallArray:Array = [];
+		public var fireWallArray:Array = [];
 		private var soundCooldown:int = 60;
+		private var prevShootMode:int = 1;
 		
 		//placeholder variables for audio
 		private var pickupOneShot:URLRequest = new URLRequest("../lib/Sounds/Pickup.mp3");
@@ -67,6 +69,7 @@ package
 		private var bulletHit:Sound = new Sound(onImpactOneShot);
 		private var playerDead:Sound = new Sound(playerDies);
 		private var enemyDead:Sound = new Sound(EnemyDies);
+		private var barExists:Boolean = false;
 		
 		private var myChannel:SoundChannel = new SoundChannel();
 		
@@ -89,20 +92,16 @@ package
 			MovingObjects.push(player1); // movingObjects[0]
 			addChild(MovingObjects[0]); // player ship
 			
-			addChild(blackBarLeft);
-			blackBarLeft.x = -blackBarLeft.width / 2;
-			blackBarLeft.y = 0;
-			blackBarLeft.scaleY = 100;
-			
-			addChild(blackBarRight);
-			blackBarRight.x = 800 + blackBarRight.width / 2;
-			blackBarRight.y = 0;
-			blackBarRight.scaleY = 100;
 			myChannel = bgAudio.play();
 			if (stage)
+			{
 				init();
+			}
 			else
+			{
 				addEventListener(Event.ADDED_TO_STAGE, init);
+			}
+			topBar.x = 400;
 			addEventListener(Event.ENTER_FRAME, loop);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, KeyPressed);
@@ -239,13 +238,14 @@ package
 				}
 				if (shootMode == 4)
 				{
-					if (playerShoots && bulletCooldown >= 1)
+					if (playerShoots && bulletCooldown >= 20 && collectedCollectables >= 1)
 					{
+						collectedCollectables--;
 						myChannel = shoot.play();
 						var bulletSpread:int = 360;
 						//addChild(playerMuzFlash);
 						
-						for (var u:int = 50; u >= 0; u--)
+						for (var u:int = 150; u >= 0; u--)
 						{
 							
 							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread / 2) - (Math.random() * bulletSpread)));
@@ -259,6 +259,32 @@ package
 						bulletCooldown++;
 					}
 				}
+			}
+			if (barExists)
+			{
+				//removeChild(blackBarLeft);
+				//removeChild(blackBarRight);
+				removeChild(topBar);
+				addChild(topBar);
+				topBar.alpha = .8;
+				
+				/*addChild(blackBarLeft);
+				blackBarLeft.x = -blackBarLeft.width / 2;
+				blackBarLeft.y = 0;
+				blackBarLeft.scaleY = 20;
+				
+				addChild(blackBarRight);
+				blackBarRight.x = 800 + blackBarRight.width / 2;
+				blackBarRight.y = 0;
+				blackBarRight.scaleY = 20;*/
+				
+			}
+			else
+			{
+				addChild(topBar);
+				//addChild(blackBarLeft);
+				//addChild(blackBarRight);
+				barExists = true;
 			}
 		/*if(traceCooldown >= 60){
 		   trace("logging collectedCollectables  :" + collectedCollectables);
@@ -295,20 +321,24 @@ package
 					if (e.keyCode == Keyboard.U)
 					{
 						shootMode = 1;
+						prevShootMode = 1;
 					}
 					
 					if (e.keyCode == Keyboard.I)
 					{
 						shootMode = 2;
+						prevShootMode = 2;
 					}
 					
 					if (e.keyCode == Keyboard.O)
 					{
 						shootMode = 3;
+						prevShootMode = 3;
 					}
 					
-					if (e.keyCode == Keyboard.NUMPAD_9)
+					if (e.keyCode == Keyboard.SPACE)
 					{
+						playerShoots = true;
 						shootMode = 4;
 					}
 				}
@@ -321,6 +351,12 @@ package
 			{
 				playerShoots = false;
 			}
+			if (e.keyCode == Keyboard.SPACE)
+			{
+				playerShoots = false;
+				shootMode = prevShootMode;
+			}
+		
 		}
 		
 		private function CheckCollision():void
@@ -329,7 +365,7 @@ package
 			var k:int = BulletArray.length;
 			var o:int = collectableArray.length;
 			var b:int = fireWallArray.length;
-			var particleAmount:int = 20;
+			var particleAmount:int = 50;
 			
 			for (var n:int = k - 1; n >= 0; n--)
 			{
@@ -388,7 +424,11 @@ package
 					{
 						if (BulletArray[y].hitTestObject(fireWallArray[t]))
 						{
+							//---------------------------------------------------------------------------------------------------------------------------------bulletbounce ding
 							var wallExplosion:Explosion = new Explosion(stage, BulletArray[y].x, BulletArray[y].y);
+							fireWallArray[t].HitByBullet();
+							//BulletArray[y].GetWallRotation(fireWallArray[t].rotation);
+							//BulletArray[y].BulletBounce();
 							BulletArray[y].DestroyBullet();
 							BulletArray.splice(y, 1);
 							addChild(wallExplosion);
@@ -419,6 +459,11 @@ package
 							fireWallArray[z].HitByEnemy();
 							if (fireWallArray[z].GetHealth() <= 0)
 							{
+								for (var h:int = particleAmount - 1; h >= 0; h--)
+								{
+									var particlesWall:ScatteringParticles = new ScatteringParticles(stage, fireWallArray[z].x, fireWallArray[z].y);
+									addChild(particlesWall);
+								}
 								fireWallArray[z].DestroyFireWall();
 								fireWallArray.splice(z, 1);
 							}

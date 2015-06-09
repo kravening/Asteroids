@@ -16,12 +16,13 @@ package
 		private var xVel:Number = 0; //velocity over the x axis.
 		private var yVel:Number = 0; //velocity over the y axis.
 		
-		private var speed:Number = 5 //bullet speed.
+		private var speed:Number; //bullet speed.
 		private var particleArt:Muzzle_Flash = new Muzzle_Flash();
 		
 		
 		public function ScatteringParticles(stageRef:Stage, X:int, Y:int) 
 		{
+			speed = Math.random() * 10;
 			addChild(particleArt);
 			this.stageRef = stageRef;
 			this.x = X;
@@ -40,11 +41,11 @@ package
 			x += xVel;
 			y += yVel;
 			this.rotation += 20;
-			this.alpha -= .025;
-			this.scaleX -= .01;
-			this.scaleY -= .01;
-			if (this.alpha <= 0) {
-				//trace("ayylmao");
+			this.alpha -= Math.random() / 10;;
+			this.scaleX -= Math.random() / 20;
+			this.scaleY -= Math.random() / 20;
+			if (this.alpha <= 0 || this.scaleX <= 0 || this.scaleY <= 0) {
+				trace("ayylmao");
 				removeEventListener(Event.ENTER_FRAME, loop);
 				this.parent.removeChild(this);
 			}

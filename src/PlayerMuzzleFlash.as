@@ -22,8 +22,8 @@ package
 		public function PlayerMuzzleFlash()
 		{
 			this.rotation = Math.random() * 360;
-			this.scaleX = 2;
-			this.scaleY = 2;
+			this.scaleX = 4;
+			this.scaleY = 4;
 			this.alpha = .8;
 			addChild(MuzzleFlashArt);
 			

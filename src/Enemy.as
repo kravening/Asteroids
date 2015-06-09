@@ -25,6 +25,8 @@ package
 		private var left:Boolean;
 		private var right:Boolean;
 		private var enemy:Enemy_Body = new Enemy_Body();
+		private var rememberPosX:int;
+		private var rememberPosY:int;
 		
 		private var impact:Muzzle_Flash = new Muzzle_Flash;
 		
@@ -32,6 +34,9 @@ package
 		private var spawnPos:Number;
 		private var spawnSwitch:Number;
 		private var moveSpeed:Number = 1;
+		private var shakeItbaby:Boolean = false;
+		private var shake:int = 5;
+		private var movement:Boolean = true;
 		
 		public function Enemy()
 		{
@@ -58,6 +63,7 @@ package
 				move = Math.abs(this.dX) / Math.abs(this.dY);
 			}
 		}
+		
 		private function init(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -67,60 +73,81 @@ package
 		
 		private function update(e:Event):void
 		{
+			
+			//if (this.x < baseX + 1 && this.x > baseX - 1 && this.y < baseY + 1 && this.y > baseY - 1)
+			//{
+			
+			//}
+			rememberPosX = this.x;
+			rememberPosY = this.y;
+			
 			if (move >= 1)
 			{
 				move = move / 2;
 				moveSpeed = moveSpeed / 2;
 			}
 			
-			//if (this.x < baseX + 1 && this.x > baseX - 1 && this.y < baseY + 1 && this.y > baseY - 1)
-			//{
-			
-			//}
-			else
+			if (isX)
 			{
-				if (isX)
+				if (this.dX <= 0)
 				{
-					if (this.dX <= 0)
-					{
-						this.x += moveSpeed;
-					}
-					else
-					{
-						this.x -= moveSpeed;
-					}
-					if (this.dY <= 0)
-					{
-						this.y += move;
-					}
-					else
-					{
-						this.y -= move;
-					}
+					this.x += moveSpeed;
 				}
 				else
 				{
-					if (this.dY <= 0)
-					{
-						this.y += moveSpeed;
-					}
-					else
-					{
-						this.y -= moveSpeed;
-					}
-					if (this.dX <= 0)
-					{
-						this.x += move;
-					}
-					else
-					{
-						this.x -= move;
-					}
+					this.x -= moveSpeed;
+				}
+				if (this.dY <= 0)
+				{
+					this.y += move;
+				}
+				else
+				{
+					this.y -= move;
 				}
 			}
+			else
+			{
+				if (this.dY <= 0)
+				{
+					this.y += moveSpeed;
+				}
+				else
+				{
+					this.y -= moveSpeed;
+				}
+				if (this.dX <= 0)
+				{
+					this.x += move;
+				}
+				else
+				{
+					this.x -= move;
+				}
+			}
+			if (move >= 1)
+			{
+				move = move / 10;
+				moveSpeed = moveSpeed / 10;
+			}
+			
+			if (move <= .5) {
+				move = move * 1.99;
+				moveSpeed = moveSpeed * 1.99;
+			}
+		
+		/*if(shake >= 0 && shakeItbaby){
+		   //this.x = rememberPosX + Math.random();
+		   //this.y = rememberPosY + Math.random();
+		   shake--;
+		   }else {
+		   movement = true;
+		   shakeItbaby = false;
+		   }*/
 		}
 		
-		private function SpawnPosChanger():void {
+		private function SpawnPosChanger():void
+		{
 			if (spawnSwitch <= 0.5)
 			{
 				
@@ -178,8 +205,11 @@ package
 		
 		public function BulletHit():void
 		{
-			health -= 1;
 			//addChild(impact);
+			//shake = 1;
+			health -= 1;
+			//shakeItbaby = true;
+			//movement = false;
 			if (top)
 			{
 				this.y -= 4;

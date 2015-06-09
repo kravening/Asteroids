@@ -15,6 +15,9 @@ package
 		private var stageRef:Stage;
 		private var rotationInRadians:Number = 0;
 		private var _health:int = 3;
+		private var shakeLength:int;
+		private var spawnX:int;
+		private var spawnY:int;
 		
 		public function FireWall(stageRef:Stage, X:int, Y:int, rotationInDegrees:Number) 
 		{
@@ -22,18 +25,32 @@ package
 			this.stageRef = stageRef;
 			this.x = X;
 			this.y = Y;
+			spawnX = X;
+			spawnY = Y;
 			this.scaleX = .1;
 			this.scaleY =  1;
 			this.rotation = rotationInDegrees;
 			this.rotationInRadians = rotationInDegrees * Math.PI / 180;
-			
+			addEventListener(Event.ENTER_FRAME, loop);
+		}
+		public function loop(e:Event):void {
+			if (shakeLength >= 0) {
+				this.x = spawnX + (Math.random() * shakeLength /1.5);
+				this.y = spawnY + (Math.random() * shakeLength /1.5);
+				shakeLength--;
+			}
 		}
 		
 		public function DestroyFireWall():void {
+			removeEventListener(Event.ENTER_FRAME, loop);
 			removeChild(_fireWall);
 		}
 		public function HitByEnemy():void {
+			this.shakeLength = 15;
 			_health--;
+		}
+		public function HitByBullet():void {
+			this.shakeLength = 5;
 		}
 		public function GetHealth():int {			
 			return _health;

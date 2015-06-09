@@ -29,11 +29,11 @@ package
 		
 		private function loop(e:Event):void {
 			this.rotation += rotationSpeed;
-			this.alpha -= .005;
-			if (this.alpha <= .994 && anotherIllogicalThing){
+			if (this.alpha <= .999 && anotherIllogicalThing){
 				anotherIllogicalThing = false;
 				this.alpha = .4
 			}
+			this.alpha -= .020;
 				
 			if (this.alpha <= 0) {
 				//trace("ayylmao");
