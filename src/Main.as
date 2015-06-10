@@ -3,6 +3,8 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;	
 	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
+	import flash.net.*;
 	/**
 	 * ...
 	 * @author Benjamin
@@ -15,21 +17,21 @@ package
 		private var inButton:InstructionButton = new InstructionButton();
 		private var bButton:BackButton = new BackButton();
 		private var inBackground:Instructionbg = new Instructionbg();
-		private var ayy:Boolean = false;
+		private var gameOver:Boolean = false;
 		private var goBG:GameOverbg = new GameOverbg();
 		private var mmButton:MainMenuButton = new MainMenuButton();
-		private var paButton:PlayAgainButton = new PlayAgainButton();
 		
 		public function Main()
 		{
-			stage.color = 0x000000;
-			stage.frameRate = 60;
+			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 
 		}
 		
 		private function init(e:Event):void {
 			
+			stage.color = 0x000000;
+			stage.frameRate = 60;
 			addButtons();
 			playButton.addEventListener(MouseEvent.CLICK, playButtonClick);
 			inButton.addEventListener(MouseEvent.CLICK, inButtonClick);
@@ -61,7 +63,7 @@ package
 			removeChild(inButton);
 			removeChild(playButton);
 			addChild(game);
-			ayy = false;
+			gameOver = false;
 		}
 		
 		private function addButtons():void {
@@ -77,27 +79,24 @@ package
 		
 		private function loop(e:Event):void
 		{
-			/*if (game.isGameOver() == true && ayy == false) {
+			if (game.isGameOver() == true && gameOver == false) {
 				trace("GAMEISOVER");
-				ayy = true;
+				gameOver = true;
+				trace(gameOver);
 				removeChild(game);
 				addChild(goBG);
 				addChild(mmButton);
-				addChild(paButton);
+				mmButton.x = 290;
+				mmButton.y = 250;
+				mmButton.addEventListener(MouseEvent.CLICK, init);
 				mmButton.addEventListener(MouseEvent.CLICK, mmButtonClick);
-				paButton.addEventListener(MouseEvent.CLICK, paButtonClick);
-				
-			}*/
+				game.isPlayerOrBaseDead = false;
+			}
 		}
 		
-		private function mmButtonClick(e:MouseEvent):void 
+		private function mmButtonClick(e:MouseEvent):void
 		{
-			addButtons();
-		}
-		
-		private function paButtonClick(e:MouseEvent):void 
-		{
-			addChild(game);
+			navigateToURL(new URLRequest(stage.loaderInfo.url), "_level0");
 		}
 	}
 }

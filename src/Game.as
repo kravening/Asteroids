@@ -59,7 +59,7 @@ package
 		private var playerHealth:int = 3;
 		private var addMuzzleArtCounter:int = 3;
 		private var topBar:info_Bar = new info_Bar();
-		private var isPlayerOrBaseDead:Boolean = false;
+		public var isPlayerOrBaseDead:Boolean = false;
 		private var dropRate:int = 40;
 		
 		private var collectableArray:Array = [];
