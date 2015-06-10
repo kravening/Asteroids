@@ -15,6 +15,10 @@ package
 		private var inButton:InstructionButton = new InstructionButton();
 		private var bButton:BackButton = new BackButton();
 		private var inBackground:Instructionbg = new Instructionbg();
+		private var ayy:Boolean = false;
+		private var goBG:GameOverbg = new GameOverbg();
+		private var mmButton:MainMenuButton = new MainMenuButton();
+		private var paButton:PlayAgainButton = new PlayAgainButton();
 		
 		public function Main()
 		{
@@ -25,10 +29,11 @@ package
 		}
 		
 		private function init(e:Event):void {
-			addChild(menuBackground);
-			addButton();
+			
+			addButtons();
 			playButton.addEventListener(MouseEvent.CLICK, playButtonClick);
 			inButton.addEventListener(MouseEvent.CLICK, inButtonClick);
+			addEventListener(Event.ENTER_FRAME , loop);
 		}
 		
 		private function inButtonClick(e:MouseEvent):void 
@@ -56,16 +61,43 @@ package
 			removeChild(inButton);
 			removeChild(playButton);
 			addChild(game);
+			ayy = false;
 		}
 		
-		private function addButton():void {
+		private function addButtons():void {
 			
+			addChild(menuBackground);
 			addChild(inButton);
 			addChild(playButton);
 			playButton.x = 200;
 			playButton.y = 300;
 			inButton.x = 600;
 			inButton.y = 300;
+		}
+		
+		private function loop(e:Event):void
+		{
+			if (game.isGameOver() == true && ayy == false) {
+				trace("GAMEISOVER");
+				ayy = true;
+				removeChild(game);
+				addChild(goBG);
+				addChild(mmButton);
+				addChild(paButton);
+				mmButton.addEventListener(MouseEvent.CLICK, mmButtonClick);
+				paButton.addEventListener(MouseEvent.CLICK, paButtonClick);
+				
+			}
+		}
+		
+		private function mmButtonClick(e:MouseEvent):void 
+		{
+			addButtons();
+		}
+		
+		private function paButtonClick(e:MouseEvent):void 
+		{
+			addChild(game);
 		}
 	}
 }

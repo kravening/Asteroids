@@ -12,6 +12,7 @@ package
 	{
 		private var base:Player_base = new Player_base();
 		private var shakeLength:int;
+		private var baseHealth:int = 3;
 		
 		public function Base()
 		{
@@ -24,6 +25,7 @@ package
 		}
 		
 		public function baseShake():void {
+			baseHealth--;
 			this.shakeLength = 30;
 		}
 		
@@ -31,10 +33,18 @@ package
 			if (shakeLength >= 0) {
 				this.x = 400 + Math.random() * shakeLength /1.5;
 				this.y = 300 + Math.random() * shakeLength /1.5;
-				shakeLength--;
+				shakeLength--;;
 			}
 		}
-	
+		
+		public function DestroyBase():void {
+			removeEventListener(Event.ENTER_FRAME, loop);
+			removeChild(base);
+		}
+		
+		public function GetBaseHealth():int {
+			return baseHealth;
+		}
 	}
 
 }

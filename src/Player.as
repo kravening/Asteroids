@@ -74,7 +74,7 @@ package
 				friction = .94;
 			}
 			
-			if ((this.x) < 0 - (this.height / 2))
+			/*if ((this.x) < 0 - (this.height / 2))
 			{
 				this.x = stage.stageWidth + this.height / 2;
 			}
@@ -89,7 +89,7 @@ package
 			if ((this.y) > (stage.stageHeight + this.height / 2))
 			{
 				this.y = -this.height / 2;
-			}
+			}*/
 			if (upKey)
 			{
 				playerIsMoving = true;
@@ -219,7 +219,6 @@ package
 			stage.removeEventListener(Event.ENTER_FRAME, loop);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyUp);
-			isGameOver = true;
 			removeChild(player1);
 			
 			

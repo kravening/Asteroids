@@ -49,6 +49,7 @@ package
 		private var playerHealth:int = 3;
 		private var addMuzzleArtCounter:int = 3;
 		private var topBar:info_Bar = new info_Bar();
+		private var isPlayerOrBaseDead:Boolean = false;
 		
 		private var collectableArray:Array = [];
 		public var fireWallArray:Array = [];
@@ -107,6 +108,11 @@ package
 			
 		}
 		
+		public function isGameOver():Boolean //-------------------------------------------------------------------------------------------------------------------------------------
+		{
+			return isPlayerOrBaseDead;
+		}
+		
 		private function spawnEnemy(e:TimerEvent):void
 		{
 			enemy = new Enemy();
@@ -125,7 +131,16 @@ package
 		}
 		
 		private function loop(e:Event):void //main loop
-		{
+		
+			if (isPlayerOrBaseDead) {
+				if { MovingObjects[0] != null) {
+						MovingObjects[0].Destroy();
+				}
+				if (fireWallArray[0] != null)
+				{
+					fireWallArray[0].DestroyFireWall();
+				}
+			}
 			if (trailSpeed >= 1)
 			{
 				if (MovingObjects[0] != null)
@@ -488,6 +503,10 @@ package
 						myChannel = enemyDead.play();
 						enemies[i].Destroy();
 						enemies.splice(i, 1);
+						if (base1.GetBaseHealth() <= 0) {
+							isPlayerOrBaseDead = true;
+							base1.DestroyBase();
+						}
 					}
 					if (enemies[i].hitTestObject(MovingObjects[0]))
 					{
@@ -506,6 +525,7 @@ package
 						MovingObjects[0].x = 400;
 						if (MovingObjects[0].PlayerHealth() <= 0)
 						{
+							isPlayerOrBaseDead = true;
 							MovingObjects[0].Destroy();
 							MovingObjects.splice(0, 1);
 						}
