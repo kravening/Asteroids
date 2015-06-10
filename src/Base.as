@@ -10,7 +10,7 @@ package
 	 */
 	public class Base extends Sprite
 	{
-		private var base:Player_base = new Player_base();
+		private var base:Player_Base = new Player_Base();
 		private var shakeLength:int;
 		private var baseHealth:int = 3;
 		

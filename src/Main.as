@@ -77,7 +77,7 @@ package
 		
 		private function loop(e:Event):void
 		{
-			if (game.isGameOver() == true && ayy == false) {
+			/*if (game.isGameOver() == true && ayy == false) {
 				trace("GAMEISOVER");
 				ayy = true;
 				removeChild(game);
@@ -87,7 +87,7 @@ package
 				mmButton.addEventListener(MouseEvent.CLICK, mmButtonClick);
 				paButton.addEventListener(MouseEvent.CLICK, paButtonClick);
 				
-			}
+			}*/
 		}
 		
 		private function mmButtonClick(e:MouseEvent):void 

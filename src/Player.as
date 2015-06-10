@@ -16,7 +16,7 @@ package
 	 */
 	public class Player extends Sprite //extends character class
 	{
-		private var player1:Player_ship = new Player_ship;
+		private var player1:Player_Body = new Player_Body;
 		
 		private var maxSpeed:int = 7;
 		private var acceleration:Number = .5;
@@ -52,6 +52,7 @@ package
 			this.y = 300;
 			this.scaleX = 0.1;
 			this.scaleY = 0.1;
+			this.alpha = .5;
 		
 		}
 		
@@ -74,7 +75,7 @@ package
 				friction = .94;
 			}
 			
-			/*if ((this.x) < 0 - (this.height / 2))
+			if ((this.x) < 0 - (this.height / 2))
 			{
 				this.x = stage.stageWidth + this.height / 2;
 			}
@@ -89,7 +90,7 @@ package
 			if ((this.y) > (stage.stageHeight + this.height / 2))
 			{
 				this.y = -this.height / 2;
-			}*/
+			}
 			if (upKey)
 			{
 				playerIsMoving = true;

@@ -12,7 +12,7 @@ package
 	 */
 	public class Bullet extends Sprite
 	{
-		private var bullet:Player_bullet = new Player_bullet;
+		private var bullet:Player_Bullet02 = new Player_Bullet02;
 		private var fpscounter:int = 30;
 		private var randomNumGen:Number = Math.random() * 3;
 		private var stageRef:Stage;
@@ -36,8 +36,8 @@ package
 		public function Bullet(stageRef:Stage, X:int, Y:int, rotationInDegrees:Number):void
 		{
 			//addChild(bullet);
-			this.scaleX = 0.1;
-			this.scaleY = 0.1;
+			this.scaleX = .1;
+			this.scaleY = .1;
 			this.stageRef = stageRef;
 			this.x = X;
 			this.y = Y;

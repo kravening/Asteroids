@@ -12,7 +12,7 @@ package
 	 */
 	public class PlayerCollectable extends Sprite
 	{
-		private var playerCollectable:Collectable = new Collectable();
+		private var playerCollectable:Player_Collectable02 = new Player_Collectable02();
 		private var stageRef:Stage;
 		private var rotationInRadians:Number = 0;
 		private var loopOn:Boolean;
@@ -26,8 +26,8 @@ package
 			this.stageRef = stageRef;
 			this.x = X;
 			this.y = Y;
-			this.scaleX = 0.2;
-			this.scaleY = 0.2;
+			this.scaleX = .2;
+			this.scaleY = .2;
 			this.alpha = .8;
 			addEventListener(Event.ENTER_FRAME, loop)
 		}

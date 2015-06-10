@@ -11,7 +11,7 @@ package
 	 */
 	public class FireWall extends Sprite
 	{
-		private var _fireWall:Muzzle_Flash = new Muzzle_Flash;
+		private var _fireWall:Player_Wall = new Player_Wall;
 		private var stageRef:Stage;
 		private var rotationInRadians:Number = 0;
 		private var _health:int = 3;
@@ -27,9 +27,9 @@ package
 			this.y = Y;
 			spawnX = X;
 			spawnY = Y;
-			this.scaleX = .1;
-			this.scaleY =  1;
-			this.rotation = rotationInDegrees;
+			this.scaleX = .3;
+			this.scaleY = .3;
+			this.rotation = rotationInDegrees + 90;
 			this.rotationInRadians = rotationInDegrees * Math.PI / 180;
 			addEventListener(Event.ENTER_FRAME, loop);
 		}

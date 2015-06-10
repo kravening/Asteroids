@@ -9,15 +9,15 @@
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
-      <value>true</value>
-    </define>
-    <define append="true">
-      <name>CONFIG::release</name>
       <value>false</value>
     </define>
     <define append="true">
+      <name>CONFIG::release</name>
+      <value>true</value>
+    </define>
+    <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'10-6-2015'</value>
+      <value>'6/10/2015'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -31,21 +31,24 @@
       <name>CONFIG::desktop</name>
       <value>false</value>
     </define>
-    <verbose-stacktraces>true</verbose-stacktraces>
+    <optimize>true</optimize>
+    <omit-trace-statements>true</omit-trace-statements>
+    <verbose-stacktraces>false</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\src</path-element>
-      <path-element>C:\Program Files (x86)\FlashDevelop5\Library\AS3\classes</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\src</path-element>
+      <path-element>D:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\MuzzleFlash.swc</path-element>
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\GlowThingy.swc</path-element>
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\graphicUserInterface.swc</path-element>
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\menuPlaceholder.swc</path-element>
-      <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\lib\Assets.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\MuzzleFlash.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\GlowThingy.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\graphicUserInterface.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\menuPlaceholder.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\AssetsFinal.swc</path-element>
+      <path-element>C:\Users\Kravening\Documents\Asteroids\lib\Background.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Benjamin\Documents\School\Bewijzenmap\Periode4\DIP\Asteroids\src\Main.as</path-element>
+    <path-element>C:\Users\Kravening\Documents\Asteroids\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#C0C0C0</default-background-color>
   <default-frame-rate>60</default-frame-rate>
