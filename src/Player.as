@@ -8,6 +8,7 @@ package
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.KeyLocation;
+	import flash.events.EventDispatcher;
 	
 	/**
 	 * ...
@@ -38,6 +39,8 @@ package
 		private var shoots:Boolean = false;
 		
 		private var brake:Boolean = false;
+		
+		public var isGameOver:Boolean = false;
 		
 		public function Player()
 		{
@@ -216,7 +219,10 @@ package
 			stage.removeEventListener(Event.ENTER_FRAME, loop);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyUp);
+			isGameOver = true;
 			removeChild(player1);
+			
+			
 		}
 		
 		public function Playerhit():void {

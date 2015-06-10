@@ -104,8 +104,7 @@ package
 			topBar.x = 400;
 			addEventListener(Event.ENTER_FRAME, loop);
 			
-			addEventListener(KeyboardEvent.KEY_DOWN, KeyPressed);
-			addEventListener(KeyboardEvent.KEY_UP, KeyUnPressed);
+			
 		}
 		
 		private function spawnEnemy(e:TimerEvent):void
@@ -118,6 +117,8 @@ package
 		private function init(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, KeyPressed);
+			stage.addEventListener(KeyboardEvent.KEY_UP, KeyUnPressed);
 			spawnTimer.addEventListener(TimerEvent.TIMER, spawnEnemy);
 			spawnTimer.start();
 			// entry point

@@ -50,7 +50,7 @@ package
 			bulletShrinkAmountX = this.scaleX / (bulletRange - bulletShrinkThreshold) // calculates the amount of frames left before the bullet dissapears then bases the scale reduction on the amount of frames left, pretty damn flexible for if i want to balance things out later.
 			bulletShrinkAmountY = this.scaleY / (bulletRange - bulletShrinkThreshold) // same thing but for the Y scaling ^^.
 			
-			addEventListener(Event.ENTER_FRAME, loop, false, 0, true);
+			addEventListener(Event.ENTER_FRAME, loop);
 		
 		}
 		
