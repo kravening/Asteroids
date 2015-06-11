@@ -61,6 +61,8 @@
     <element path="lib\Background.swc" />
     <element path="lib\Enemy_Animations.swc" />
     <element path="lib\ExtraPages.swc" />
+    <element path="lib\Menu_Final.swc" />
+    <element path="lib\MENU_Assets_Final.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

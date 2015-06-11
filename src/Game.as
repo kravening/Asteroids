@@ -71,12 +71,12 @@ package
 		private var BGAudioTransform:SoundTransform = new SoundTransform(1, 0);
 		
 		//placeholder variables for audio
-		private var pickupOneShot:URLRequest = new URLRequest("../lib/Sounds/Pickup.mp3");
+		private var pickupOneShot:URLRequest = new URLRequest("http://18648.hosts.ma-cloud.nl/Sounds/Pickup.mp3");
 		//private var onImpactOneShot:URLRequest = new URLRequest("../lib/Sounds/Die echte hit.mp3");
-		private var EnemyDies:URLRequest = new URLRequest("../lib/Sounds/EnemyDies.mp3");
-		private var playerDies:URLRequest = new URLRequest("../lib/Sounds/PlayerDies.mp3");
-		private var laserOneShot:URLRequest = new URLRequest("../lib/Sounds/Laser1.mp3");
-		private var Soundtrack:URLRequest = new URLRequest("../lib/Sounds/BG audio.mp3");
+		private var EnemyDies:URLRequest = new URLRequest("http://18648.hosts.ma-cloud.nl/Sounds/EnemyDies.mp3");
+		private var playerDies:URLRequest = new URLRequest("http://18648.hosts.ma-cloud.nl/Sounds/PlayerDies.mp3");
+		private var laserOneShot:URLRequest = new URLRequest("http://18648.hosts.ma-cloud.nl/Sounds/Laser1.mp3");
+		private var Soundtrack:URLRequest = new URLRequest("http://18648.hosts.ma-cloud.nl/Sounds/BGaudio.mp3");
 		
 		private var shoot:Sound = new Sound(laserOneShot);
 		private var bgAudio:Sound = new Sound(Soundtrack);
@@ -85,7 +85,6 @@ package
 		private var playerDead:Sound = new Sound(playerDies);
 		private var enemyDead:Sound = new Sound(EnemyDies);
 		private var barExists:Boolean = false;
-		private var gameCleared:Boolean;
 		private var dontRepeatThis:Boolean = true;
 		public var shakeItBaby:int;
 		
@@ -93,7 +92,7 @@ package
 		
 		public function Game()
 		{
-			gameCleared = false;
+			//gameCleared = false;
 			//InformationWindow = "Player Health" + playerHealth + "Patches" + collectedCollectables;
 			spawnCooldown = 3000;
 			currentSpawnCooldown = spawnCooldown;
@@ -234,12 +233,12 @@ package
 					if (playerShoots && bulletCooldown >= 3)
 					{
 						myChannel = shoot.play(0,0,SFXTransform);
-						var bulletSpread:int = 14;
+						var bulletSpread1:int = 14;
 						//addChild(playerMuzFlash);
 						
 						for (var u:int = 3; u >= 0; u--)
 						{
-							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread / 2) - (Math.random() * bulletSpread)));
+							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread1 / 2) - (Math.random() * bulletSpread1)));
 							addChild(bullet);
 							BulletArray.push(bullet);
 						}
@@ -257,13 +256,13 @@ package
 					if (playerShoots && bulletCooldown >= 12)
 					{
 						myChannel = shoot.play(0,0,SFXTransform);
-						var bulletSpread:int = 40;
+						var bulletSpread2:int = 40;
 						//addChild(playerMuzFlash);
 						
 						for (var u:int = 12; u >= 0; u--)
 						{
 							
-							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread / 2) - (Math.random() * bulletSpread)));
+							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread2 / 2) - (Math.random() * bulletSpread2)));
 							addChild(bullet);
 							BulletArray.push(bullet);
 						}
@@ -282,8 +281,8 @@ package
 					{
 						//addChild(playerMuzFlash);
 						myChannel = shoot.play(0,0,SFXTransform);
-						var bulletSpread:int = 6;
-						var bullet1:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread / 2) - (Math.random() * bulletSpread)));
+						var bulletSpread3:int = 6;
+						var bullet1:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread3 / 2) - (Math.random() * bulletSpread3)));
 						addChild(bullet1);
 						BulletArray.push(bullet1);
 						MovingObjects[0].knockBack();
@@ -300,13 +299,13 @@ package
 					{
 						collectedCollectables--;
 						myChannel = shoot.play(0,0,SFXTransform);
-						var bulletSpread:int = 360;
+						var bulletSpread4:int = 360;
 						//addChild(playerMuzFlash);
 						
 						for (var u:int = 150; u >= 0; u--)
 						{
 							
-							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread / 2) - (Math.random() * bulletSpread)));
+							var bullet:Bullet = new Bullet(stage, (MovingObjects[0].x), (MovingObjects[0].y), (MovingObjects[0].rotation + (bulletSpread4 / 2) - (Math.random() * bulletSpread4)));
 							addChild(bullet);
 							BulletArray.push(bullet);
 						}
