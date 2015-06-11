@@ -87,6 +87,7 @@ package
 		private var barExists:Boolean = false;
 		private var gameCleared:Boolean;
 		private var dontRepeatThis:Boolean = true;
+		public var shakeItBaby:int;
 		
 		private var myChannel:SoundChannel = new SoundChannel();
 		
@@ -135,6 +136,10 @@ package
 			//playerScoreText.scaleY = .5;
 		}
 		
+		public function canHazShake():int {
+			return shakeItBaby;
+		}
+		
 		public function isGameOver():Boolean //-------------------------------------------------------------------------------------------------------------------------------------
 		{
 			return isPlayerOrBaseDead;
@@ -159,11 +164,14 @@ package
 		}
 		private function scoreScale():void {
 			//playerScoreText.scaleX = 1;
-			playerScoreText.scaleY = .7;
+			playerScoreText.scaleY = 1;
 		}
 		
 		private function loop(e:Event):void //main loop
 		{
+			if (shakeItBaby >= 0) {
+				shakeItBaby--;
+			}
 			if (playerScoreText.scaleY >= .5) {
 				//playerScoreText.scaleX -= .01;
 				playerScoreText.scaleY -= .05;
@@ -174,42 +182,6 @@ package
 			playerScoreText.text = String(ScoreField);
 			playerAtp.text = String(playerHealth + "/" + baseHealth);
 			playerCollectedField.text = String(collectedCollectables);
-			
-			if (isPlayerOrBaseDead && gameCleared == false) {
-				if(MovingObjects[0] != null) {
-						MovingObjects[0].Destroy();
-						MovingObjects.splice(0, 1);
-				}
-				if (fireWallArray[0] != null)
-				{
-					fireWallArray[0].DestroyFireWall();
-					fireWallArray.splice(0, 1);
-				}
-				if (enemies[0] != null) {
-					enemies[0].Destroy();
-					enemies.splice(0, 1);
-				}
-				if (BulletArray[0] != null) {
-					BulletArray[0].DestroyBullet();
-					BulletArray.splice(0, 1);
-				}
-				if (base1 != null && dontRepeatThis) {
-					base1.DestroyBase();
-					dontRepeatThis = false;
-					
-				}
-				
-				if (MovingObjects[0] != null && fireWallArray[0] != null && enemies[0] != null && BulletArray[0] != null && base1 != null) {
-					stage.removeEventListener(KeyboardEvent.KEY_DOWN, KeyPressed);
-					stage.removeEventListener(KeyboardEvent.KEY_UP, KeyUnPressed);
-					spawnTimer.stop();
-					removeEventListener(TimerEvent.TIMER, spawnEnemy);
-					removeEventListener(Event.ENTER_FRAME, loop);
-					gameCleared = true;
-				}
-			}else {
-				gameCleared = false;
-			}
 			
 			if (trailSpeed >= 1)
 			{
@@ -360,9 +332,9 @@ package
 				addChild(playerCollectedField);
 				topBar.alpha = .8;
 				
-				playerScoreText.alpha = .5;
-				playerAtp.alpha = .5;
-				playerCollectedField.alpha = .5;
+				playerScoreText.alpha = 1;
+				playerAtp.alpha = 1;
+				playerCollectedField.alpha = 1;
 				playerScoreText.x = (topBar.width / 2) - (playerScoreText.length / 2);
 				playerAtp.x = (topBar.width / 7);
 				playerCollectedField.x = (topBar.width / 1.166);
@@ -391,7 +363,7 @@ package
 				barExists = true;
 			}
 			staticFilter.y = Math.random() * 8;
-			staticFilter.alpha = Math.random() / 8;
+			staticFilter.alpha = Math.random() /6;
 		/*if(traceCooldown >= 60){
 		   trace("logging collectedCollectables  :" + collectedCollectables);
 		   trace("logging collectableArray Length:" + collectableArray.length);
@@ -507,7 +479,7 @@ package
 						
 						collectableArray[x].startLoop();
 						
-						if (soundCooldown >= 0)
+						if (soundCooldown >= 60)
 						{
 							soundCooldown = 0;
 							myChannel = pickup.play(0,0, SFXTransform);
@@ -533,7 +505,7 @@ package
 							//---------------------------------------------------------------------------------------------------------------------------------bulletbounce ding
 							var wallExplosion:Explosion = new Explosion(stage, BulletArray[y].x, BulletArray[y].y);
 							fireWallArray[t].HitByBullet();
-							//BulletArray[y].GetWallRotation(fireWallArray[t].rotation);
+							//jBulletArray[y].GetWallRotation(fireWallArray[t].rotation);
 							//BulletArray[y].BulletBounce();
 							BulletArray[y].DestroyBullet();
 							BulletArray.splice(y, 1);
@@ -579,7 +551,7 @@ package
 					}
 				}
 				
-				if (enemies[i] != null && MovingObjects[0] != null)
+				if (enemies[i] != null && base1 != null)
 				{
 					if (enemies[i].hitTestObject(base1))
 					{
@@ -601,6 +573,10 @@ package
 							base1.DestroyBase();
 						}
 					}
+				}
+				
+				if (MovingObjects[0] != null && enemies[i] != null) {
+					
 					if (enemies[i].hitTestObject(MovingObjects[0]))
 					{
 						
@@ -640,7 +616,7 @@ package
 							//myChannel = bulletHit.play(0,0, SFXTransform);
 							if (enemies[i].GetHealth() <= 0)
 							{
-								
+								shakeItBaby = 30;
 								var collectable:PlayerCollectable = new PlayerCollectable(stage, enemies[i].x, enemies[i].y);
 								var enemyExplode:EnemyExplosion = new EnemyExplosion(stage, enemies[i].x, enemies[i].y);
 								ScoreField += 1000;

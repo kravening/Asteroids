@@ -41,7 +41,7 @@ package
 		}
 		
 		private function Destroy():void {
-			trace("ayylmao");
+			//trace("ayylmao");
 			removeEventListener(Event.ENTER_FRAME, loop);
 			parent.removeChild(this);
 		}

@@ -15,11 +15,14 @@ package
 		private var playButton:PlayButton = new PlayButton();
 		private var menuBackground:Menubg = new Menubg();
 		private var inButton:InstructionButton = new InstructionButton();
+		//private var crButton:CreditButton = new CreditButton();
 		private var bButton:BackButton = new BackButton();
-		private var inBackground:Instructionbg = new Instructionbg();
+		private var inBackground:Instruction_Page = new Instruction_Page();
+		private var crBackground:Credit_Page = new Credit_Page();
 		private var gameOver:Boolean = false;
 		private var goBG:GameOverbg = new GameOverbg();
 		private var mmButton:MainMenuButton = new MainMenuButton();
+		private var shakeLength:int = 30;
 		
 		public function Main()
 		{
@@ -29,7 +32,7 @@ package
 		}
 		
 		private function init(e:Event):void {
-			
+			inBackground.x = -35;
 			stage.color = 0x000000;
 			stage.frameRate = 60;
 			addButtons();
@@ -79,11 +82,12 @@ package
 		
 		private function loop(e:Event):void
 		{
+			//var shakeIt:int = game.
 			if (game.isGameOver() == true && gameOver == false) {
-				trace("GAMEISOVER");
+				//trace("GAMEISOVER");
 				gameOver = true;
-				trace(gameOver);
-				removeChild(game);
+				//trace(gameOver);
+				//removeChild(game);
 				addChild(goBG);
 				addChild(mmButton);
 				mmButton.x = 290;
@@ -91,6 +95,13 @@ package
 				mmButton.addEventListener(MouseEvent.CLICK, init);
 				mmButton.addEventListener(MouseEvent.CLICK, mmButtonClick);
 				game.isPlayerOrBaseDead = false;
+			}
+			if (game.canHazShake() >= 0) {
+				game.x = (Math.random() * game.shakeItBaby) - game.shakeItBaby / 2;
+				game.y = (Math.random() * game.shakeItBaby) - game.shakeItBaby / 2;
+			}else {
+				game.x = 0;
+				game.y = 0;
 			}
 		}
 		

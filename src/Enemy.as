@@ -24,7 +24,7 @@ package
 		private var bot:Boolean;
 		private var left:Boolean;
 		private var right:Boolean;
-		private var enemy:Enemy_Body = new Enemy_Body();
+		private var enemy:EnemyBody = new EnemyBody();
 		private var rememberPosX:int;
 		private var rememberPosY:int;
 		
@@ -155,7 +155,7 @@ package
 				{ // top or bottom
 					this.x = Math.random() * 800 - 50; //top
 					this.y = Math.random() * 10 - 100;
-					this.rotation = 90;
+					this.rotation = 270;
 					
 					top = true;
 					bot = false;
@@ -167,7 +167,7 @@ package
 				{
 					this.x = Math.random() * 800 - 50; //bottom
 					this.y = Math.random() * 10 + 600;
-					this.rotation = 270;
+					this.rotation = 90;
 					
 					top = false;
 					bot = true;
@@ -183,6 +183,7 @@ package
 				{ //left or right
 					this.x = Math.random() * -this.width; //left
 					this.y = Math.random() * 600 - 50;
+					this.rotation = 180;
 					
 					top = false;
 					bot = false;
@@ -193,7 +194,7 @@ package
 				{
 					this.x = Math.random() * 10 + 800; //right
 					this.y = Math.random() * 600 - 50;
-					this.rotation = 180;
+					//this.rotation = 180;
 					
 					top = false;
 					bot = false;

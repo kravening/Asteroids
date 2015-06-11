@@ -42,10 +42,10 @@ package
 			y += yVel;
 			this.rotation += 20;
 			this.alpha -= Math.random() / 10;;
-			this.scaleX -= Math.random() / 20;
-			this.scaleY -= Math.random() / 20;
+			this.scaleX -= Math.random() / 30;
+			this.scaleY -= Math.random() / 30;
 			if (this.alpha <= 0 || this.scaleX <= 0 || this.scaleY <= 0) {
-				trace("ayylmao");
+				//trace("ayylmao");
 				removeEventListener(Event.ENTER_FRAME, loop);
 				this.parent.removeChild(this);
 			}

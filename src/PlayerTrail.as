@@ -37,8 +37,8 @@ package
 		{
 			this.rotation += 10;
 			this.alpha -= trailLength ;
-			this.scaleX -= trailLength / 2;
-			this.scaleY -= trailLength / 2;
+			this.scaleX += trailLength / 2;
+			this.scaleY += trailLength / 2;
 			if (this.alpha <= 0)
 			{
 				removeEventListener(Event.ENTER_FRAME, loop);

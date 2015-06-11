@@ -37,6 +37,7 @@ package
 		private var initFriction:Number;
 		private var normalizedFriction:Number;
 		private var shoots:Boolean = false;
+		private var checkIfArtExists:Array = [];
 		
 		private var brake:Boolean = false;
 		
@@ -44,15 +45,16 @@ package
 		
 		public function Player()
 		{
+			checkIfArtExists.push(player1);
+			addChild(checkIfArtExists[0]);
 			
-			addChild(player1);
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
 			
 			this.x = 300;
 			this.y = 300;
 			this.scaleX = 0.1;
 			this.scaleY = 0.1;
-			this.alpha = .5;
+			this.alpha = 1;
 		
 		}
 		
@@ -69,72 +71,73 @@ package
 		
 		private function loop(e:Event):void //main loop
 		{
-			
-			if (friction >= .95)
-			{
-				friction = .94;
-			}
-			
-			if ((this.x) < 0 - (this.height / 2))
-			{
-				this.x = stage.stageWidth + this.height / 2;
-			}
-			if ((this.x) > (stage.stageWidth + this.height / 2))
-			{
-				this.x = -this.height / 2;
-			}
-			if ((this.y) < 0 - (this.height / 2))
-			{
-				this.y = stage.stageHeight + this.height / 2;
-			}
-			if ((this.y) > (stage.stageHeight + this.height / 2))
-			{
-				this.y = -this.height / 2;
-			}
-			if (upKey)
-			{
-				playerIsMoving = true;
-				brake = false;
-				velocity.y += acceleration * Math.sin(this.rotation / 180 * Math.PI);
-				velocity.x += acceleration * Math.cos(this.rotation / 180 * Math.PI);
-			}
-			else if (downKey)
-			{
-				playerIsMoving = true;
-				brake = false;
-				velocity.y += -(acceleration * Math.sin(this.rotation / 180 * Math.PI));
-				velocity.x += -(acceleration * Math.cos(this.rotation / 180 * Math.PI));
-			}
-			else
-			{
-				brake = true;
-				playerIsMoving = false;
+			if(checkIfArtExists[0] != null){
+				if (friction >= .95)
+				{
+					friction = .94;
+				}
 				
-			}
-			if (brake)
-			{
-				velocity.x *= friction;
-				velocity.y *= friction;
-			}
-			
-			if (rightKey)
-			{
-				this.rotation += rotationSpeed;
-			}
-			
-			if (leftKey)
-			{
-				this.rotation -= rotationSpeed;
-			}
-			
-			this.x += velocity.x;
-			this.y += velocity.y;
-			var getCurrSpd:Number = Math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
-			
-			if (getCurrSpd > maxSpeed)
-			{
-				velocity.y *= (maxSpeed / getCurrSpd);
-				velocity.x *= (maxSpeed / getCurrSpd);
+				if ((this.x) < 0 - (this.height / 2))
+				{
+					this.x = stage.stageWidth + this.height / 2;
+				}
+				if ((this.x) > (stage.stageWidth + this.height / 2))
+				{
+					this.x = -this.height / 2;
+				}
+				if ((this.y) < 0 - (this.height / 2))
+				{
+					this.y = stage.stageHeight + this.height / 2;
+				}
+				if ((this.y) > (stage.stageHeight + this.height / 2))
+				{
+					this.y = -this.height / 2;
+				}
+				if (upKey)
+				{
+					playerIsMoving = true;
+					brake = false;
+					velocity.y += acceleration * Math.sin(this.rotation / 180 * Math.PI);
+					velocity.x += acceleration * Math.cos(this.rotation / 180 * Math.PI);
+				}
+				else if (downKey)
+				{
+					playerIsMoving = true;
+					brake = false;
+					velocity.y += -(acceleration * Math.sin(this.rotation / 180 * Math.PI));
+					velocity.x += -(acceleration * Math.cos(this.rotation / 180 * Math.PI));
+				}
+				else
+				{
+					brake = true;
+					playerIsMoving = false;
+					
+				}
+				if (brake)
+				{
+					velocity.x *= friction;
+					velocity.y *= friction;
+				}
+				
+				if (rightKey)
+				{
+					this.rotation += rotationSpeed;
+				}
+				
+				if (leftKey)
+				{
+					this.rotation -= rotationSpeed;
+				}
+				
+				this.x += velocity.x;
+				this.y += velocity.y;
+				var getCurrSpd:Number = Math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
+				
+				if (getCurrSpd > maxSpeed)
+				{
+					velocity.y *= (maxSpeed / getCurrSpd);
+					velocity.x *= (maxSpeed / getCurrSpd);
+				}
 			}
 		}
 		
@@ -221,6 +224,7 @@ package
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyUp);
 			removeChild(player1);
+			checkIfArtExists.splice(0, 1);
 			
 			
 		}

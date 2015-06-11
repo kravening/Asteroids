@@ -12,7 +12,6 @@ package
 		public function TopBar() 
 		{
 			addChild(bar);
-			setChildIndex(
 		}
 		
 	}
